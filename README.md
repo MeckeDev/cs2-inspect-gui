@@ -5,4 +5,4 @@ This is the GUI Version of the [CS2 Inspect Generator](https://github.com/dr3fty
 install Python 3
 download the Zip, unpack and run the start.bat
 
-![image](https://github.com/MeckeDev/cs2-inspect-gui/assets/43956685/68a32a07-5018-4b50-bffe-7aff5ade8e4b)
+![image](https://github.com/MeckeDev/cs2-inspect-gui/assets/43956685/73e1a01a-12f3-4bd0-9013-79e54025739f)
