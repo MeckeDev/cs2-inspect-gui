@@ -121,9 +121,10 @@ class SkinGeneratorApp(QMainWindow):
         ]
 
         result = subprocess.run(command, capture_output=True, text=True)
-        command, link = result.stdout.split(" : ")
+        command, link, gen = result.stdout.split(" : ")
         self.command = command
         self.link = link
+        self.gen = gen
 
         self.result_text.setPlainText(f'''
 Command: 
@@ -131,6 +132,9 @@ Command:
         
 Link:
 {self.link}
+
+Gen:
+{self.gen}
  ''')
 
     def copy_to_clipboard(self):

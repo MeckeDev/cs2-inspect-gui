@@ -101,7 +101,7 @@ def main():
 
     generated_payload = generate_inspect(proto)
 
-    print(f"csgo_econ_action_preview {generated_payload} : steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20{generated_payload}")
+    print(f"csgo_econ_action_preview {generated_payload} : steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20{generated_payload} : !gen {proto.defindex} {proto.paintindex} {proto.paintseed} {paint_wear}")
 
 if __name__ == "__main__":
     main()
