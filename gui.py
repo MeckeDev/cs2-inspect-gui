@@ -92,13 +92,10 @@ class SkinGeneratorApp(QMainWindow):
         copy_button.clicked.connect(self.copy_to_clipboard)
         layout.addWidget(copy_button)
 
-        link_button = QPushButton("Visit me on Steam")
-        link_button.clicked.connect(self.open_mecke)
-        layout.addWidget(link_button)
-
-        og_link_button = QPushButton("Credits to dr3fty")
-        og_link_button.clicked.connect(self.open_dr3fty)
-        layout.addWidget(og_link_button)
+        # Create clickable link labels
+        link_label_mecke = QLabel('<a href="https://steamcommunity.com/id/mecke_dev/">Visit me on Steam</a> <a href="https://github.com/dr3fty/cs2-inspect-gen">Credits to dr3fty</a></div>')
+        link_label_mecke.setOpenExternalLinks(True)  # This makes the link open in the default web browser
+        layout.addWidget(link_label_mecke)
 
 
         main_widget.setLayout(layout)
@@ -126,14 +123,6 @@ class SkinGeneratorApp(QMainWindow):
     def copy_to_clipboard(self):
         result = self.result_text.toPlainText()
         pyperclip.copy(result)
-
-    def open_mecke(self,):
-        url = QUrl("https://steamcommunity.com/id/mecke_dev/")
-        QDesktopServices.openUrl(url)
-
-    def open_dr3fty(self):
-        url = QUrl("https://github.com/dr3fty/cs2-inspect-gen")
-        QDesktopServices.openUrl(url)
 
     def update_gun_completion_list(self, search_query):
         filtered_items = [item for item in gun_ids.values() if search_query.lower() in item.lower()]
