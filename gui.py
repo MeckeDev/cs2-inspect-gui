@@ -67,21 +67,18 @@ class SkinGeneratorApp(QMainWindow):
         layout.addWidget(QLabel("Pattern:"))
         layout.addWidget(self.pattern_entry)
 
-        paint_wear_layout = QHBoxLayout()
-        paint_wear_label = QLabel("Paint Wear:")
-        self.paint_wear_slider = QSlider(Qt.Horizontal)
-        self.paint_wear_slider.setRange(0, 100000000)  # Range for integer values
-        self.paint_wear_entry = QLineEdit()
-        self.paint_wear_entry.setFixedWidth(100)  # Adjust the width as needed
+        paint_wear_layout = QVBoxLayout()
+        paint_wear_label = QLabel("Float:")
 
+        self.paint_wear_entry = QLineEdit()
+        self.paint_wear_entry.setFixedWidth(300)
+        self.paint_wear_entry.setMaxLength(16)
+        
         paint_wear_layout.addWidget(paint_wear_label)
-        paint_wear_layout.addWidget(self.paint_wear_slider)
         paint_wear_layout.addWidget(self.paint_wear_entry)
+        
 
         layout.addLayout(paint_wear_layout)
-
-        self.paint_wear_slider.valueChanged.connect(self.update_paint_wear_entry)
-        self.paint_wear_entry.editingFinished.connect(self.update_slider_from_entry)
 
         self.result_text = QTextEdit(self)
         self.result_text.setReadOnly(True)
@@ -107,7 +104,7 @@ class SkinGeneratorApp(QMainWindow):
         skin_name = self.skin_combobox.currentText()
         rarity_name = self.rarity_combobox.currentText()
         pattern = self.pattern_entry.text()
-        paint_wear = self.paint_wear_slider.value() / 100.0
+        paint_wear = self.paint_wear_entry.text()
 
         gun_id = next((key for key, value in gun_ids.items() if value == gun_name), None)
         skin_id = next((key for key, value in skin_ids.items() if value == skin_name), None)
@@ -144,18 +141,6 @@ class SkinGeneratorApp(QMainWindow):
         filtered_items = [item for item in rarity_ids.values() if search_query.lower() in item.lower()]
         self.rarity_combobox.clear()
         self.rarity_combobox.addItems(filtered_items)
-
-    def update_paint_wear_entry(self, value):
-        paint_wear = value * 0.00000000001
-        self.paint_wear_entry.setText(str(paint_wear))
-
-    def update_slider_from_entry(self):
-        try:
-            paint_wear = float(self.paint_wear_entry.text())
-            slider_value = int(paint_wear / 0.00000000001)
-            self.paint_wear_slider.setValue(slider_value)
-        except ValueError:
-            pass
 
 if __name__ == "__main__":
     # Check if a file marker exists indicating dependencies are already installed
