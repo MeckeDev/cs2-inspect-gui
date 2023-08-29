@@ -1,5 +1,5 @@
 # Origin / Credits
-This is the GUI Version of the [CS2 Inspect Generator](https://github.com/dr3fty/cs2-inspect-gen) from @dr3fty
+This is the GUI Version of the [CS2 Inspect Generator](https://github.com/dr3fty/cs2-inspect-gen) from [dr3fty](https://github.com/dr3fty)
 
 # Usage
 install Python 3  
