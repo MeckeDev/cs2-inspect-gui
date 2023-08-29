@@ -1,0 +1,13 @@
+{
+
+    "0" :	"Stock - Gray",
+    "1" :	"Consumer Grade - Gray",
+    "2" :	"Industrial Grade - Light Blue",
+    "3" :	"Mil-Spec Grade - Blue",
+    "4" :	"Restricted - Purple",
+    "5" :	"Classified - Pink",
+    "6" :	"Covert - Red",
+    "7" :	"Contraband - Gold",
+    "99":   "Gold"
+
+}
