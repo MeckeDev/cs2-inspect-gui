@@ -93,8 +93,12 @@ class SkinGeneratorApp(QMainWindow):
         layout.addWidget(copy_button)
 
         link_button = QPushButton("Visit me on Steam")
-        link_button.clicked.connect(self.open_link)
+        link_button.clicked.connect(self.open_mecke)
         layout.addWidget(link_button)
+
+        og_link_button = QPushButton("Credits to dr3fty")
+        og_link_button.clicked.connect(self.open_dr3fty)
+        layout.addWidget(og_link_button)
 
 
         main_widget.setLayout(layout)
@@ -123,8 +127,12 @@ class SkinGeneratorApp(QMainWindow):
         result = self.result_text.toPlainText()
         pyperclip.copy(result)
 
-    def open_link(self):
+    def open_mecke(self,):
         url = QUrl("https://steamcommunity.com/id/mecke_dev/")
+        QDesktopServices.openUrl(url)
+
+    def open_dr3fty(self):
+        url = QUrl("https://github.com/dr3fty/cs2-inspect-gen")
         QDesktopServices.openUrl(url)
 
     def update_gun_completion_list(self, search_query):
