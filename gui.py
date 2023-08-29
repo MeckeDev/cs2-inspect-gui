@@ -88,9 +88,13 @@ class SkinGeneratorApp(QMainWindow):
         generate_button.clicked.connect(self.generate_inspect)
         layout.addWidget(generate_button)
 
-        copy_button = QPushButton("Copy to Clipboard", self)
+        copy_button = QPushButton("Copy Command to Clipboard", self)
         copy_button.clicked.connect(self.copy_to_clipboard)
         layout.addWidget(copy_button)
+
+        copy_url_button = QPushButton("Copy URL to Clipboard", self)
+        copy_url_button.clicked.connect(self.copy_url_to_clipboard)
+        layout.addWidget(copy_url_button)
 
         # Create clickable link labels
         link_label_mecke = QLabel('<a href="https://steamcommunity.com/id/mecke_dev/">Visit me on Steam</a> <a href="https://github.com/dr3fty/cs2-inspect-gen">Credits to dr3fty</a></div>')
@@ -117,11 +121,24 @@ class SkinGeneratorApp(QMainWindow):
         ]
 
         result = subprocess.run(command, capture_output=True, text=True)
-        self.result_text.setPlainText(result.stdout)
-        pyperclip.copy(result.stdout)
+        command, link = result.stdout.split(" : ")
+        self.command = command
+        self.link = link
+
+        self.result_text.setPlainText(f'''
+Command: 
+{self.command}
+        
+Link:
+{self.link}
+ ''')
 
     def copy_to_clipboard(self):
-        result = self.result_text.toPlainText()
+        result = self.command
+        pyperclip.copy(result)
+        
+    def copy_url_to_clipboard(self):
+        result = self.link
         pyperclip.copy(result)
 
     def update_gun_completion_list(self, search_query):
