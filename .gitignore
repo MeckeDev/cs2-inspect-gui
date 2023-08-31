@@ -8,6 +8,7 @@ dependencies_installed.marker
 search.py
 search.txt
 items.txt
+searched.json
 
 # C extensions
 *.so
