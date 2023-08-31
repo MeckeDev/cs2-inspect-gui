@@ -5,6 +5,9 @@ __pycache__/
 
 # ignore dependencies_installed
 dependencies_installed.marker
+search.py
+search.txt
+items.txt
 
 # C extensions
 *.so
