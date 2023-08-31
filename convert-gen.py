@@ -97,7 +97,7 @@ def main():
         sticker.sticker_id = sticker1_id
         sticker.wear = sticker1_wear
 
-        sticker_string += f"{sticker1_id} {sticker1_wear}"
+        sticker_string += f"{sticker1_id} {sticker1_wear} "
     
     if sticker2_id is not 0:
         sticker = proto.stickers.add()
@@ -105,7 +105,7 @@ def main():
         sticker.sticker_id = sticker2_id
         sticker.wear = sticker2_wear
 
-        sticker_string += f"{sticker2_id} {sticker2_wear}"
+        sticker_string += f"{sticker2_id} {sticker2_wear} "
     
     if sticker3_id is not 0:
         sticker = proto.stickers.add()
@@ -113,7 +113,7 @@ def main():
         sticker.sticker_id = sticker3_id
         sticker.wear = sticker3_wear
 
-        sticker_string += f"{sticker3_id} {sticker3_wear}"
+        sticker_string += f"{sticker3_id} {sticker3_wear} "
     
     if sticker4_id is not 0:
         sticker = proto.stickers.add()
@@ -121,7 +121,7 @@ def main():
         sticker.sticker_id = sticker4_id
         sticker.wear = sticker4_wear
 
-        sticker_string += f"{sticker4_id} {sticker4_wear}"
+        sticker_string += f"{sticker4_id} {sticker4_wear} "
 
 
     generated_payload = generate_inspect(proto)
