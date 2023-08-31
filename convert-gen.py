@@ -1,3 +1,8 @@
+# ####################################### #
+#    This Script was written by dr3fty    #
+#     slightly modified by Mecke_Dev      #
+# ####################################### #
+
 import econ_pb2
 import zlib
 
