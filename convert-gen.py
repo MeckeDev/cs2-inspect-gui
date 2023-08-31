@@ -52,56 +52,75 @@ class ArgParser:
 ALLOWED_COMMANDS = ["gen", "gengl", "genrarity"]
 
 def main():
+    
+    input_args = sys.argv[1:]
     args = ArgParser()
-
+    
     # Not too proud of this
     command_name = args.pop_string()
-    if command_name and len(command_name) > 1 and command_name[0] == "!":
-        command_name = command_name[1:]
-
-    if command_name and command_name.lower() not in ALLOWED_COMMANDS:
-        print("Invalid or no command name")
-        return
-    
-    if args.count < 1:
-        print("Not enough arguments")
-        return
-
     command_name = command_name.lower()
-    is_weapon_gen = command_name == "gen" or command_name == "genrarity"
 
     # You can modify other parameters to your liking (check econ.proto for all variables)
     proto = econ_pb2.CEconItemPreviewDataBlock()
 
-    if command_name == "genrarity":
-        proto.rarity = args.pop_int(0)
-    elif command_name == "gengl":
-        # Always set the quality to red on gloves
-        proto.rarity = 6
-
+    proto.rarity = args.pop_int(0)
     proto.defindex = args.pop_int(1)
     proto.paintindex = args.pop_int(0)
     proto.paintseed = args.pop_int(0)
-
     paint_wear = args.pop_float(0)
-    # Is there a better way to do it in python? 
-    proto.paintwear = int.from_bytes(struct.pack(">f", paint_wear), "big")
 
-    if is_weapon_gen:
-        for slot in range(0, 5):
-            sticker_id = args.pop_int()
-            sticker_wear = args.pop_float(0)
-            if not sticker_id:
-                break
+    proto.paintwear = int(paint_wear * (1 << 31))
 
-            sticker = proto.stickers.add()
-            sticker.slot = slot
-            sticker.sticker_id = sticker_id
-            sticker.wear = sticker_wear
+    sticker1_id = args.pop_int()
+    sticker1_wear = args.pop_float(0)
+
+    sticker2_id = args.pop_int()
+    sticker2_wear = args.pop_float(0)
+
+    sticker3_id = args.pop_int()
+    sticker3_wear = args.pop_float(0)
+
+    sticker4_id = args.pop_int()
+    sticker4_wear = args.pop_float(0)
+
+    sticker_string = ""
+
+    if sticker1_id is not 0:
+        sticker = proto.stickers.add()
+        sticker.slot = 0
+        sticker.sticker_id = sticker1_id
+        sticker.wear = sticker1_wear
+
+        sticker_string += f"{sticker1_id} {sticker1_wear}"
+    
+    if sticker2_id is not 0:
+        sticker = proto.stickers.add()
+        sticker.slot = 1
+        sticker.sticker_id = sticker2_id
+        sticker.wear = sticker2_wear
+
+        sticker_string += f"{sticker2_id} {sticker2_wear}"
+    
+    if sticker3_id is not 0:
+        sticker = proto.stickers.add()
+        sticker.slot = 2
+        sticker.sticker_id = sticker3_id
+        sticker.wear = sticker3_wear
+
+        sticker_string += f"{sticker3_id} {sticker3_wear}"
+    
+    if sticker4_id is not 0:
+        sticker = proto.stickers.add()
+        sticker.slot = 3
+        sticker.sticker_id = sticker4_id
+        sticker.wear = sticker4_wear
+
+        sticker_string += f"{sticker4_id} {sticker4_wear}"
+
 
     generated_payload = generate_inspect(proto)
 
-    print(f"csgo_econ_action_preview {generated_payload} : steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20{generated_payload} : !gen {proto.defindex} {proto.paintindex} {proto.paintseed} {paint_wear}")
+    print(f"csgo_econ_action_preview {generated_payload} : steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20{generated_payload} : !gen {proto.defindex} {proto.paintindex} {proto.paintseed} {paint_wear} {sticker_string}")
 
 if __name__ == "__main__":
     main()

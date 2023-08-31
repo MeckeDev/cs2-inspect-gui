@@ -25,6 +25,9 @@ with open("skin_ids.json", "r", encoding="utf-8") as skin_file:
 with open("rarity_ids.json", "r", encoding="utf-8") as rarity_file:
     rarity_ids = json.load(rarity_file)
 
+with open("sticker_ids.json", "r", encoding="utf-8") as sticker_file:
+    sticker_ids = json.load(sticker_file)
+
 class SkinGeneratorApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -32,7 +35,8 @@ class SkinGeneratorApp(QMainWindow):
 
         main_widget = QWidget(self)
         self.setCentralWidget(main_widget)
-        self.setFixedWidth(400)
+        self.setFixedWidth(600)
+        self.setFixedHeight(1000)
         layout = QVBoxLayout()
 
         self.gun_search_entry = QLineEdit(self)
@@ -67,22 +71,151 @@ class SkinGeneratorApp(QMainWindow):
         layout.addWidget(QLabel("Pattern:"))
         layout.addWidget(self.pattern_entry)
 
-        paint_wear_layout = QVBoxLayout()
-        paint_wear_label = QLabel("Float:")
-
+        paint_wear_layout = QHBoxLayout()
+        paint_wear_label = QLabel("Paint Wear:")
+        self.paint_wear_slider = QSlider(Qt.Horizontal)
+        self.paint_wear_slider.setRange(0, 100000000)  # Range for integer values
         self.paint_wear_entry = QLineEdit()
-        self.paint_wear_entry.setFixedWidth(300)
-        self.paint_wear_entry.setMaxLength(16)
-        
+        self.paint_wear_entry.setFixedWidth(250)  # Adjust the width as needed
+
         paint_wear_layout.addWidget(paint_wear_label)
+        paint_wear_layout.addWidget(self.paint_wear_slider)
         paint_wear_layout.addWidget(self.paint_wear_entry)
-        
 
         layout.addLayout(paint_wear_layout)
 
-        self.result_text = QTextEdit(self)
-        self.result_text.setReadOnly(True)
-        layout.addWidget(self.result_text)
+        self.paint_wear_slider.valueChanged.connect(self.update_paint_wear_entry)
+        self.paint_wear_entry.editingFinished.connect(self.update_slider_from_entry)
+
+        # Add Sticker 1 elements
+        self.sticker1_search_entry = QLineEdit(self)
+        self.sticker1_combobox = QComboBox(self)
+        self.sticker1_combobox.addItems(sticker_ids.values())
+        self.sticker1_search_entry.textChanged.connect(self.update_sticker1_completion_list)
+
+        layout.addWidget(QLabel("Sticker 1:"))
+        layout.addWidget(self.sticker1_search_entry)
+        layout.addWidget(self.sticker1_combobox)
+
+        sticker1_slider_layout = QHBoxLayout()
+        sticker1_slider_label = QLabel("Sticker 1 Wear:")
+        self.sticker1_slider = QSlider(Qt.Horizontal)
+        self.sticker1_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker1_slider.setValue(0)  # Set default value to 0
+        self.sticker1_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker1_slider_entry = QLineEdit()
+        self.sticker1_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker1_slider_layout.addWidget(sticker1_slider_label)
+        sticker1_slider_layout.addWidget(self.sticker1_slider)
+        sticker1_slider_layout.addWidget(self.sticker1_slider_entry)
+
+        layout.addLayout(sticker1_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker1_slider.valueChanged.connect(self.update_slider1_input_box)
+
+        # Add Sticker 2 elements
+        self.sticker2_search_entry = QLineEdit(self)
+        self.sticker2_combobox = QComboBox(self)
+        self.sticker2_combobox.addItems(sticker_ids.values())
+        self.sticker2_search_entry.textChanged.connect(self.update_sticker2_completion_list)
+
+        layout.addWidget(QLabel("Sticker 2:"))
+        layout.addWidget(self.sticker2_search_entry)
+        layout.addWidget(self.sticker2_combobox)
+
+        sticker2_slider_layout = QHBoxLayout()
+        sticker2_slider_label = QLabel("Sticker 2 Wear:")
+        self.sticker2_slider = QSlider(Qt.Horizontal)
+        self.sticker2_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker2_slider.setValue(0)  # Set default value to 0
+        self.sticker2_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker2_slider_entry = QLineEdit()
+        self.sticker2_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker2_slider_layout.addWidget(sticker2_slider_label)
+        sticker2_slider_layout.addWidget(self.sticker2_slider)
+        sticker2_slider_layout.addWidget(self.sticker2_slider_entry)
+
+        layout.addLayout(sticker2_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker2_slider.valueChanged.connect(self.update_slider2_input_box)
+
+        # Add Sticker 3 elements
+        self.sticker3_search_entry = QLineEdit(self)
+        self.sticker3_combobox = QComboBox(self)
+        self.sticker3_combobox.addItems(sticker_ids.values())
+        self.sticker3_search_entry.textChanged.connect(self.update_sticker3_completion_list)
+
+        layout.addWidget(QLabel("Sticker 3:"))
+        layout.addWidget(self.sticker3_search_entry)
+        layout.addWidget(self.sticker3_combobox)
+
+        sticker3_slider_layout = QHBoxLayout()
+        sticker3_slider_label = QLabel("Sticker 3 Wear:")
+        self.sticker3_slider = QSlider(Qt.Horizontal)
+        self.sticker3_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker3_slider.setValue(0)  # Set default value to 0
+        self.sticker3_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker3_slider_entry = QLineEdit()
+        self.sticker3_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker3_slider_layout.addWidget(sticker3_slider_label)
+        sticker3_slider_layout.addWidget(self.sticker3_slider)
+        sticker3_slider_layout.addWidget(self.sticker3_slider_entry)
+
+        layout.addLayout(sticker3_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker3_slider.valueChanged.connect(self.update_slider3_input_box)
+
+        # Add Sticker 4 elements
+        self.sticker4_search_entry = QLineEdit(self)
+        self.sticker4_combobox = QComboBox(self)
+        self.sticker4_combobox.addItems(sticker_ids.values())
+        self.sticker4_search_entry.textChanged.connect(self.update_sticker4_completion_list)
+
+        layout.addWidget(QLabel("Sticker 4:"))
+        layout.addWidget(self.sticker4_search_entry)
+        layout.addWidget(self.sticker4_combobox)
+
+        sticker4_slider_layout = QHBoxLayout()
+        sticker4_slider_label = QLabel("Sticker 4 Wear:")
+        self.sticker4_slider = QSlider(Qt.Horizontal)
+        self.sticker4_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker4_slider.setValue(0)  # Set default value to 0
+        self.sticker4_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker4_slider_entry = QLineEdit()
+        self.sticker4_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker4_slider_layout.addWidget(sticker4_slider_label)
+        sticker4_slider_layout.addWidget(self.sticker4_slider)
+        sticker4_slider_layout.addWidget(self.sticker4_slider_entry)
+
+        layout.addLayout(sticker4_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker4_slider.valueChanged.connect(self.update_slider4_input_box)
+
+
+        self.result1_text = QTextEdit(self)
+        self.result1_text.setReadOnly(True)
+        self.result1_text.setFixedHeight(50)
+        layout.addWidget(self.result1_text)
+
+        self.result2_text = QTextEdit(self)
+        self.result2_text.setReadOnly(True)
+        layout.addWidget(self.result2_text)
+
+        self.result3_text = QTextEdit(self)
+        self.result3_text.setReadOnly(True)
+        layout.addWidget(self.result3_text)
 
         generate_button = QPushButton("Generate", self)
         generate_button.clicked.connect(self.generate_inspect)
@@ -101,7 +234,6 @@ class SkinGeneratorApp(QMainWindow):
         link_label_mecke.setOpenExternalLinks(True)  # This makes the link open in the default web browser
         layout.addWidget(link_label_mecke)
 
-
         main_widget.setLayout(layout)
 
     def generate_inspect(self):
@@ -109,33 +241,55 @@ class SkinGeneratorApp(QMainWindow):
         skin_name = self.skin_combobox.currentText()
         rarity_name = self.rarity_combobox.currentText()
         pattern = self.pattern_entry.text()
-        paint_wear = self.paint_wear_entry.text()
+        paint_wear = self.paint_wear_slider.value() / 100000.0
+        sticker1_name = self.sticker1_combobox.currentText()
+        sticker2_name = self.sticker2_combobox.currentText()
+        sticker3_name = self.sticker3_combobox.currentText()
+        sticker4_name = self.sticker4_combobox.currentText()
+        sticker1_wear = ""
+        sticker2_wear = ""
+        sticker3_wear = ""
+        sticker4_wear = ""
 
         gun_id = next((key for key, value in gun_ids.items() if value == gun_name), None)
         skin_id = next((key for key, value in skin_ids.items() if value == skin_name), None)
         rarity_id = next((key for key, value in rarity_ids.items() if value == rarity_name), None)
+        sticker1_id = next((key for key, value in sticker_ids.items() if value == sticker1_name), None)
+        sticker2_id = next((key for key, value in sticker_ids.items() if value == sticker2_name), None)
+        sticker3_id = next((key for key, value in sticker_ids.items() if value == sticker3_name), None)
+        sticker4_id = next((key for key, value in sticker_ids.items() if value == sticker4_name), None)
+                
+        if sticker1_id != "":
+            sticker1_wear = self.sticker1_slider.value() / 100.0   
+     
+        if sticker2_id != "":
+            sticker2_wear = self.sticker2_slider.value() / 100.0
+                
+        if sticker3_id != "":
+            sticker3_wear = self.sticker3_slider.value() / 100.0
+                
+        if sticker4_id != "":
+            sticker4_wear = self.sticker4_slider.value() / 100.0
+
+        print(rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, sticker1_wear, sticker2_id, sticker2_wear, sticker3_id, sticker3_wear, sticker4_id, sticker4_wear)
 
         command = [
             "python", "convert-gen.py",
-            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear)
+            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, str(sticker1_wear), sticker2_id, str(sticker2_wear), sticker3_id, str(sticker3_wear), sticker4_id, str(sticker4_wear)
         ]
 
         result = subprocess.run(command, capture_output=True, text=True)
+        print("OUT: ", result.stdout)
         command, link, gen = result.stdout.split(" : ")
         self.command = command
         self.link = link
         self.gen = gen
 
-        self.result_text.setPlainText(f'''
-Command: 
-{self.command}
+        self.result1_text.setPlainText(self.command)        
         
-Link:
-{self.link}
-
-Gen:
-{self.gen}
- ''')
+        self.result2_text.setPlainText(self.link)        
+        
+        self.result3_text.setPlainText(self.gen)
 
     def copy_to_clipboard(self):
         result = self.command
@@ -144,6 +298,10 @@ Gen:
     def copy_url_to_clipboard(self):
         result = self.link
         pyperclip.copy(result)
+
+    def open_link(self):
+        url = QUrl("https://steamcommunity.com/id/mecke_dev/")
+        QDesktopServices.openUrl(url)
 
     def update_gun_completion_list(self, search_query):
         filtered_items = [item for item in gun_ids.values() if search_query.lower() in item.lower()]
@@ -159,6 +317,50 @@ Gen:
         filtered_items = [item for item in rarity_ids.values() if search_query.lower() in item.lower()]
         self.rarity_combobox.clear()
         self.rarity_combobox.addItems(filtered_items)
+
+    def update_paint_wear_entry(self, value):
+        paint_wear = value * 0.00000001
+        self.paint_wear_entry.setText(str(paint_wear))
+
+    def update_slider_from_entry(self):
+        try:
+            paint_wear = float(self.paint_wear_entry.text())
+            slider_value = int(paint_wear / 0.00000001)
+            self.paint_wear_slider.setValue(slider_value)
+        except ValueError:
+            pass
+
+    def update_slider1_input_box(self, value):
+        self.sticker1_slider_entry.setText(str(value / 100)) 
+
+    def update_slider2_input_box(self, value):
+        self.sticker2_slider_entry.setText(str(value / 100)) 
+
+    def update_slider3_input_box(self, value):
+        self.sticker3_slider_entry.setText(str(value / 100)) 
+
+    def update_slider4_input_box(self, value):
+        self.sticker4_slider_entry.setText(str(value / 100)) 
+
+    def update_sticker1_completion_list(self, search_query):
+        filtered_items = [item for item in sticker_ids.values() if search_query.lower() in item.lower()]
+        self.sticker1_combobox.clear()
+        self.sticker1_combobox.addItems(filtered_items)
+
+    def update_sticker2_completion_list(self, search_query):
+        filtered_items = [item for item in sticker_ids.values() if search_query.lower() in item.lower()]
+        self.sticker2_combobox.clear()
+        self.sticker2_combobox.addItems(filtered_items)
+
+    def update_sticker3_completion_list(self, search_query):
+        filtered_items = [item for item in sticker_ids.values() if search_query.lower() in item.lower()]
+        self.sticker3_combobox.clear()
+        self.sticker3_combobox.addItems(filtered_items)
+
+    def update_sticker4_completion_list(self, search_query):
+        filtered_items = [item for item in sticker_ids.values() if search_query.lower() in item.lower()]
+        self.sticker4_combobox.clear()
+        self.sticker4_combobox.addItems(filtered_items)
 
 if __name__ == "__main__":
     # Check if a file marker exists indicating dependencies are already installed
