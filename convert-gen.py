@@ -89,6 +89,13 @@ def main():
     sticker4_id = args.pop_int()
     sticker4_wear = args.pop_float(0)
 
+    stattrak = args.pop_int()
+    stattrak_count = args.pop_int(123)
+
+    if stattrak == 0:
+        proto.killeaterscoretype = 0
+        proto.killeatervalue = stattrak_count
+
     sticker_string = ""
 
     if sticker1_id is not 0:

@@ -3,7 +3,7 @@ import sys
 import json
 import subprocess
 import pyperclip
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QComboBox, QVBoxLayout, QHBoxLayout, QWidget, QSlider, QFormLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QCheckBox, QLabel, QLineEdit, QPushButton, QTextEdit, QComboBox, QVBoxLayout, QHBoxLayout, QWidget, QSlider, QFormLayout
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QDesktopServices
 
@@ -70,6 +70,16 @@ class SkinGeneratorApp(QMainWindow):
         self.pattern_entry.setText("1")
         layout.addWidget(QLabel("Pattern:"))
         layout.addWidget(self.pattern_entry)
+
+        stattrak_count_layout = QHBoxLayout()
+        self.stattrak_count_check = QCheckBox("StatTrak", self)
+        self.stattrak_count_entry = QLineEdit()
+        self.stattrak_count_entry.setFixedWidth(500)
+
+        stattrak_count_layout.addWidget(self.stattrak_count_check)
+        stattrak_count_layout.addWidget(self.stattrak_count_entry)
+
+        layout.addLayout(stattrak_count_layout)
 
         paint_wear_layout = QHBoxLayout()
         paint_wear_label = QLabel("Float:")
@@ -250,6 +260,12 @@ class SkinGeneratorApp(QMainWindow):
         sticker2_wear = ""
         sticker3_wear = ""
         sticker4_wear = ""
+        stattrak = "1"
+        stattrak_count = "0"
+
+        if self.stattrak_count_check.checkState() == 2:
+            stattrak = "0"
+            stattrak_count = self.stattrak_count_entry.text()
 
         gun_id = next((key for key, value in gun_ids.items() if value == gun_name), None)
         skin_id = next((key for key, value in skin_ids.items() if value == skin_name), None)
@@ -275,7 +291,7 @@ class SkinGeneratorApp(QMainWindow):
 
         command = [
             "python", "convert-gen.py",
-            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, str(sticker1_wear), sticker2_id, str(sticker2_wear), sticker3_id, str(sticker3_wear), sticker4_id, str(sticker4_wear)
+            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, str(sticker1_wear), sticker2_id, str(sticker2_wear), sticker3_id, str(sticker3_wear), sticker4_id, str(sticker4_wear), stattrak, stattrak_count
         ]
 
         result = subprocess.run(command, capture_output=True, text=True)
