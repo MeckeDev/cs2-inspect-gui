@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# ignore dependencies_installed
+dependencies_installed.marker
+
 # C extensions
 *.so
 

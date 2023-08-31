@@ -211,10 +211,12 @@ class SkinGeneratorApp(QMainWindow):
 
         self.result2_text = QTextEdit(self)
         self.result2_text.setReadOnly(True)
+        self.result2_text.setFixedHeight(50)
         layout.addWidget(self.result2_text)
 
         self.result3_text = QTextEdit(self)
         self.result3_text.setReadOnly(True)
+        self.result3_text.setFixedHeight(50)
         layout.addWidget(self.result3_text)
 
         generate_button = QPushButton("Generate", self)
@@ -228,6 +230,10 @@ class SkinGeneratorApp(QMainWindow):
         copy_url_button = QPushButton("Copy URL to Clipboard", self)
         copy_url_button.clicked.connect(self.copy_url_to_clipboard)
         layout.addWidget(copy_url_button)
+
+        copy_gen_button = QPushButton("Copy Gen to Clipboard", self)
+        copy_gen_button.clicked.connect(self.copy_gen_to_clipboard)
+        layout.addWidget(copy_gen_button)
 
         # Create clickable link labels
         link_label_mecke = QLabel('<a href="https://steamcommunity.com/id/mecke_dev/">Visit me on Steam</a> <a href="https://github.com/dr3fty/cs2-inspect-gen">Credits to dr3fty</a></div>')
@@ -297,6 +303,10 @@ class SkinGeneratorApp(QMainWindow):
         
     def copy_url_to_clipboard(self):
         result = self.link
+        pyperclip.copy(result)
+        
+    def copy_gen_to_clipboard(self):
+        result = self.gen
         pyperclip.copy(result)
 
     def open_link(self):
