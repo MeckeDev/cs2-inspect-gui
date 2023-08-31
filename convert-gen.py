@@ -69,7 +69,8 @@ def main():
     proto.paintseed = args.pop_int(0)
     paint_wear = args.pop_float(0)
 
-    proto.paintwear = int(paint_wear * (1 << 31))
+    # Is there a better way to do it in python? 
+    proto.paintwear = int.from_bytes(struct.pack(">f", paint_wear), "big")
 
     sticker1_id = args.pop_int()
     sticker1_wear = args.pop_float(0)
