@@ -4,7 +4,8 @@ This is the GUI Version of the [CS2 Inspect Generator](https://github.com/dr3fty
 # Usage
 - install Python 3    
 - download the Zip  
-- unpack  
+- unpack
+- run the pre_start.bat
 - run the start.bat  
 
 ### GUI:  
