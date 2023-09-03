@@ -92,6 +92,10 @@ def main():
     stattrak = args.pop_int()
     stattrak_count = args.pop_int(123)
 
+    nametag = args.pop_string("")
+    if len(nametag) > 0:
+        proto.customname = nametag
+
     if stattrak == 0:
         proto.killeaterscoretype = 0
         proto.killeatervalue = stattrak_count

@@ -39,6 +39,16 @@ class SkinGeneratorApp(QMainWindow):
         self.setFixedHeight(1000)
         layout = QVBoxLayout()
 
+        nametag_layout = QHBoxLayout()
+        self.nametag_entry = QLineEdit()
+        self.nametag_entry.setMaxLength(123)
+
+
+        layout.addWidget(QLabel("Nametag:"))
+        nametag_layout.addWidget(self.nametag_entry)
+
+        layout.addLayout(nametag_layout)
+
         self.gun_search_entry = QLineEdit(self)
         self.gun_combobox = QComboBox(self)
         self.gun_combobox.addItems(gun_ids.values())
@@ -262,6 +272,7 @@ class SkinGeneratorApp(QMainWindow):
         sticker4_wear = ""
         stattrak = "1"
         stattrak_count = "0"
+        nametag = self.nametag_entry.text()
 
         if self.stattrak_count_check.checkState() == 2:
             stattrak = "0"
@@ -291,7 +302,7 @@ class SkinGeneratorApp(QMainWindow):
 
         command = [
             "python", "convert-gen.py",
-            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, str(sticker1_wear), sticker2_id, str(sticker2_wear), sticker3_id, str(sticker3_wear), sticker4_id, str(sticker4_wear), stattrak, stattrak_count
+            "genrarity", rarity_id, gun_id, skin_id, pattern, str(paint_wear), sticker1_id, str(sticker1_wear), sticker2_id, str(sticker2_wear), sticker3_id, str(sticker3_wear), sticker4_id, str(sticker4_wear), stattrak, stattrak_count, nametag
         ]
 
         result = subprocess.run(command, capture_output=True, text=True)
