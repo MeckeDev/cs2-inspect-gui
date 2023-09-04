@@ -101,105 +101,18 @@ class SkinGeneratorApp(QMainWindow):
 
         layout.addLayout(paint_wear_layout)
 
-        # Add Sticker 1 elements
-        self.sticker1_search_entry = QLineEdit(self)
-        self.sticker1_combobox = QComboBox(self)
-        self.sticker1_combobox.addItems(sticker_ids.values())
-        self.sticker1_search_entry.textChanged.connect(self.update_sticker1_completion_list)
-
-        layout.addWidget(QLabel("Sticker 1:"))
-        layout.addWidget(self.sticker1_search_entry)
-        layout.addWidget(self.sticker1_combobox)
-
-        sticker1_slider_layout = QHBoxLayout()
-        sticker1_slider_label = QLabel("Sticker 1 Wear:")
-        self.sticker1_slider = QSlider(Qt.Horizontal)
-        self.sticker1_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
-        self.sticker1_slider.setValue(0)  # Set default value to 0
-        self.sticker1_slider.setSingleStep(1)  # Step of 1
-
-        self.sticker1_slider_entry = QLineEdit()
-        self.sticker1_slider_entry.setFixedWidth(100)  # Adjust the width as needed
-
-        sticker1_slider_layout.addWidget(sticker1_slider_label)
-        sticker1_slider_layout.addWidget(self.sticker1_slider)
-        sticker1_slider_layout.addWidget(self.sticker1_slider_entry)
-
-        layout.addLayout(sticker1_slider_layout)
-
-        # Connect the slider's valueChanged signal to update the input box
-        self.sticker1_slider.valueChanged.connect(self.update_slider1_input_box)
-
-        # Add Sticker 2 elements
-        self.sticker2_search_entry = QLineEdit(self)
-        self.sticker2_combobox = QComboBox(self)
-        self.sticker2_combobox.addItems(sticker_ids.values())
-        self.sticker2_search_entry.textChanged.connect(self.update_sticker2_completion_list)
-
-        layout.addWidget(QLabel("Sticker 2:"))
-        layout.addWidget(self.sticker2_search_entry)
-        layout.addWidget(self.sticker2_combobox)
-
-        sticker2_slider_layout = QHBoxLayout()
-        sticker2_slider_label = QLabel("Sticker 2 Wear:")
-        self.sticker2_slider = QSlider(Qt.Horizontal)
-        self.sticker2_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
-        self.sticker2_slider.setValue(0)  # Set default value to 0
-        self.sticker2_slider.setSingleStep(1)  # Step of 1
-
-        self.sticker2_slider_entry = QLineEdit()
-        self.sticker2_slider_entry.setFixedWidth(100)  # Adjust the width as needed
-
-        sticker2_slider_layout.addWidget(sticker2_slider_label)
-        sticker2_slider_layout.addWidget(self.sticker2_slider)
-        sticker2_slider_layout.addWidget(self.sticker2_slider_entry)
-
-        layout.addLayout(sticker2_slider_layout)
-
-        # Connect the slider's valueChanged signal to update the input box
-        self.sticker2_slider.valueChanged.connect(self.update_slider2_input_box)
-
-        # Add Sticker 3 elements
-        self.sticker3_search_entry = QLineEdit(self)
-        self.sticker3_combobox = QComboBox(self)
-        self.sticker3_combobox.addItems(sticker_ids.values())
-        self.sticker3_search_entry.textChanged.connect(self.update_sticker3_completion_list)
-
-        layout.addWidget(QLabel("Sticker 3:"))
-        layout.addWidget(self.sticker3_search_entry)
-        layout.addWidget(self.sticker3_combobox)
-
-        sticker3_slider_layout = QHBoxLayout()
-        sticker3_slider_label = QLabel("Sticker 3 Wear:")
-        self.sticker3_slider = QSlider(Qt.Horizontal)
-        self.sticker3_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
-        self.sticker3_slider.setValue(0)  # Set default value to 0
-        self.sticker3_slider.setSingleStep(1)  # Step of 1
-
-        self.sticker3_slider_entry = QLineEdit()
-        self.sticker3_slider_entry.setFixedWidth(100)  # Adjust the width as needed
-
-        sticker3_slider_layout.addWidget(sticker3_slider_label)
-        sticker3_slider_layout.addWidget(self.sticker3_slider)
-        sticker3_slider_layout.addWidget(self.sticker3_slider_entry)
-
-        layout.addLayout(sticker3_slider_layout)
-
-        # Connect the slider's valueChanged signal to update the input box
-        self.sticker3_slider.valueChanged.connect(self.update_slider3_input_box)
-
         # Add Sticker 4 elements
         self.sticker4_search_entry = QLineEdit(self)
         self.sticker4_combobox = QComboBox(self)
         self.sticker4_combobox.addItems(sticker_ids.values())
         self.sticker4_search_entry.textChanged.connect(self.update_sticker4_completion_list)
 
-        layout.addWidget(QLabel("Sticker 4:"))
+        layout.addWidget(QLabel("Sticker 1:"))
         layout.addWidget(self.sticker4_search_entry)
         layout.addWidget(self.sticker4_combobox)
 
         sticker4_slider_layout = QHBoxLayout()
-        sticker4_slider_label = QLabel("Sticker 4 Wear:")
+        sticker4_slider_label = QLabel("Sticker 1 Wear:")
         self.sticker4_slider = QSlider(Qt.Horizontal)
         self.sticker4_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
         self.sticker4_slider.setValue(0)  # Set default value to 0
@@ -217,6 +130,94 @@ class SkinGeneratorApp(QMainWindow):
         # Connect the slider's valueChanged signal to update the input box
         self.sticker4_slider.valueChanged.connect(self.update_slider4_input_box)
 
+        
+
+        # Add Sticker 3 elements
+        self.sticker3_search_entry = QLineEdit(self)
+        self.sticker3_combobox = QComboBox(self)
+        self.sticker3_combobox.addItems(sticker_ids.values())
+        self.sticker3_search_entry.textChanged.connect(self.update_sticker3_completion_list)
+
+        layout.addWidget(QLabel("Sticker 2:"))
+        layout.addWidget(self.sticker3_search_entry)
+        layout.addWidget(self.sticker3_combobox)
+
+        sticker3_slider_layout = QHBoxLayout()
+        sticker3_slider_label = QLabel("Sticker 2 Wear:")
+        self.sticker3_slider = QSlider(Qt.Horizontal)
+        self.sticker3_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker3_slider.setValue(0)  # Set default value to 0
+        self.sticker3_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker3_slider_entry = QLineEdit()
+        self.sticker3_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker3_slider_layout.addWidget(sticker3_slider_label)
+        sticker3_slider_layout.addWidget(self.sticker3_slider)
+        sticker3_slider_layout.addWidget(self.sticker3_slider_entry)
+
+        layout.addLayout(sticker3_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker3_slider.valueChanged.connect(self.update_slider3_input_box)
+
+        # Add Sticker 2 elements
+        self.sticker2_search_entry = QLineEdit(self)
+        self.sticker2_combobox = QComboBox(self)
+        self.sticker2_combobox.addItems(sticker_ids.values())
+        self.sticker2_search_entry.textChanged.connect(self.update_sticker2_completion_list)
+
+        layout.addWidget(QLabel("Sticker 3:"))
+        layout.addWidget(self.sticker2_search_entry)
+        layout.addWidget(self.sticker2_combobox)
+
+        sticker2_slider_layout = QHBoxLayout()
+        sticker2_slider_label = QLabel("Sticker 3 Wear:")
+        self.sticker2_slider = QSlider(Qt.Horizontal)
+        self.sticker2_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker2_slider.setValue(0)  # Set default value to 0
+        self.sticker2_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker2_slider_entry = QLineEdit()
+        self.sticker2_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker2_slider_layout.addWidget(sticker2_slider_label)
+        sticker2_slider_layout.addWidget(self.sticker2_slider)
+        sticker2_slider_layout.addWidget(self.sticker2_slider_entry)
+
+        layout.addLayout(sticker2_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker2_slider.valueChanged.connect(self.update_slider2_input_box)
+
+        # Add Sticker 1 elements
+        self.sticker1_search_entry = QLineEdit(self)
+        self.sticker1_combobox = QComboBox(self)
+        self.sticker1_combobox.addItems(sticker_ids.values())
+        self.sticker1_search_entry.textChanged.connect(self.update_sticker1_completion_list)
+
+        layout.addWidget(QLabel("Sticker 4:"))
+        layout.addWidget(self.sticker1_search_entry)
+        layout.addWidget(self.sticker1_combobox)
+
+        sticker1_slider_layout = QHBoxLayout()
+        sticker1_slider_label = QLabel("Sticker 4 Wear:")
+        self.sticker1_slider = QSlider(Qt.Horizontal)
+        self.sticker1_slider.setRange(0, 100)  # Range from 0 to 100 (0 - 1 in 0.01 steps)
+        self.sticker1_slider.setValue(0)  # Set default value to 0
+        self.sticker1_slider.setSingleStep(1)  # Step of 1
+
+        self.sticker1_slider_entry = QLineEdit()
+        self.sticker1_slider_entry.setFixedWidth(100)  # Adjust the width as needed
+
+        sticker1_slider_layout.addWidget(sticker1_slider_label)
+        sticker1_slider_layout.addWidget(self.sticker1_slider)
+        sticker1_slider_layout.addWidget(self.sticker1_slider_entry)
+
+        layout.addLayout(sticker1_slider_layout)
+
+        # Connect the slider's valueChanged signal to update the input box
+        self.sticker1_slider.valueChanged.connect(self.update_slider1_input_box)
 
         self.result1_text = QTextEdit(self)
         self.result1_text.setReadOnly(True)
